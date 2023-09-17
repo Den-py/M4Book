@@ -2,9 +2,28 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="M4Book.View.TagsEditView">
-    <Grid RowDefinitions="1*,8*, 1*">
-        <Label Grid.Row="0" Text="Название рассматриваемой книги"></Label>
-        <ListView Grid.Row="1" x:Name="TagsList">
+    <Grid RowDefinitions="1*,8*, 1*" Margin="25" RowSpacing="25" >
+        <Image>
+            <Image.Source>
+                <StreamImageSource BindingContext=""></StreamImageSource>
+            </Image.Source>
+        </Image>
+        <Label Grid.Row="0" Text="{Binding Name}" HorizontalTextAlignment="Center"></Label>
+        <ListView Grid.Row="1" x:Name="TagsList" ItemsSource="{Binding ListOF}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid ColumnDefinitions="4*, 5*, 1*">
+                                <Label Text="{Binding TagName}" Grid.Column="0"></Label>
+                                <Label Text="{Binding TagValue}" Grid.Column="1"></Label>
+                                <Button Text="Edit" Grid.Column="2"></Button>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Grid.Row="2" Text="Save changes"></Button>
     </Grid>

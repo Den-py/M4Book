@@ -12,9 +12,6 @@ using System.Formats.Tar;
 
 namespace M4Book.ViewModel
 {
-    
-  
-
     public class TagsEditViewModel : INotifyPropertyChanged
     {
 
@@ -39,9 +36,11 @@ namespace M4Book.ViewModel
             bookFile = TagLib.File.Create("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\" + curent.FileName);
             var ttt = bookFile.Tag.GetType().GetFields(BindingFlags.NonPublic).ToList();
             curent.FileName = bookFile.Tag.Title;
+            curent.Duration = bookFile.Properties.Duration;
+            
 
             MemoryStream memoryStream = new MemoryStream(bookFile.Tag.Pictures[0].Data.Data);
-            Image = memoryStream as ImageSource;
+            // Image = memoryStream as ImageSource;
 
             /* TODO: добавить изменения с учетом массивов, возращать текст через свойства класса и не текстовое поле*/
             var tttt1 = new List<Tag>() {
@@ -101,8 +100,6 @@ namespace M4Book.ViewModel
             listOF = tttt1;
         } 
 
-
-
         public string Name
         {
             get => curent.FileName;
@@ -126,7 +123,6 @@ namespace M4Book.ViewModel
             get => picture;
             set { if (picture != value) { picture = value; OnPropertyChanged(); } }
         }
-
 
         public void OnPropertyChanged([CallerMemberName] string prop="")
         {

@@ -2,6 +2,8 @@
 using M4Book.ViewModel;
 using Microsoft.Maui.Controls;
 
+using M4Book.View;
+
 namespace M4Book;
 
 public partial class MainPage : ContentPage
@@ -9,10 +11,8 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
-		BindingContext = new TagsEditViewModel();
-
-		ListView TagsList = this.FindByName("TagsList") as ListView;
-
+		
+		Content = new PlayerView();
 		
     }
 }
