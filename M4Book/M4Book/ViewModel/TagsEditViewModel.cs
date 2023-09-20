@@ -1,4 +1,5 @@
 ﻿using M4Book.Model;
+using ATL;
 using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using System.Formats.Tar;
+using TagLib;
+using Tag = M4Book.Model.Tag;
 
 namespace M4Book.ViewModel
 {
@@ -17,10 +20,10 @@ namespace M4Book.ViewModel
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        /*Audiobook curent = new Audiobook() { FileName = "В.Чиркова - Личный секретарь для младшего принца.m4b" };*/
+        /*Audiobook curent = new Audiobook() { FileName = "В.Чиркова - Личный секретарь для младшего принца.m4b" };*//*
         Audiobook curent = new Audiobook()
         {
-            FileName = "Житие мое.m4b"
+            
         };
 
         TagLib.File bookFile;
@@ -32,17 +35,23 @@ namespace M4Book.ViewModel
 
         public TagsEditViewModel()
         {
-            /*bookFile = TagLib.File.Create(FileSystem.Current.AppDataDirectory + "\\" + curent.FileName);*/
+            *//*bookFile = TagLib.File.Create(FileSystem.Current.AppDataDirectory + "\\" + curent.FileName);*//*
             bookFile = TagLib.File.Create("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\" + curent.FileName);
-            var ttt = bookFile.Tag.GetType().GetFields(BindingFlags.NonPublic).ToList();
-            curent.FileName = bookFile.Tag.Title;
-            curent.Duration = bookFile.Properties.Duration;
+            
             
 
+
+            curent.FileName = bookFile.Tag.Title;
+            curent.Duration = bookFile.Properties.Duration;
+
+            var chapterTag = bookFile.GetTag(TagTypes.Apple);
+            // Read
+            
+            *//*var chapters =bookFile.*//*
             MemoryStream memoryStream = new MemoryStream(bookFile.Tag.Pictures[0].Data.Data);
             // Image = memoryStream as ImageSource;
 
-            /* TODO: добавить изменения с учетом массивов, возращать текст через свойства класса и не текстовое поле*/
+            *//* TODO: добавить изменения с учетом массивов, возращать текст через свойства класса и не текстовое поле*//*
             var tttt1 = new List<Tag>() {
                 new Tag("Album", bookFile.Tag.Album),
                 new Tag("FirstAlbumArtist", bookFile.Tag.FirstAlbumArtist),
@@ -123,7 +132,7 @@ namespace M4Book.ViewModel
             get => picture;
             set { if (picture != value) { picture = value; OnPropertyChanged(); } }
         }
-
+*/
         public void OnPropertyChanged([CallerMemberName] string prop="")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

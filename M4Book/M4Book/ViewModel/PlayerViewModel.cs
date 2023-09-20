@@ -16,10 +16,7 @@ namespace M4Book.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        Audiobook curent = new Audiobook()
-        {
-            FileName = "Житие мое.m4b"
-        };
+        Audiobook curent = new Audiobook();
 
         TagLib.File bookFile;
 

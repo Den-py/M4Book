@@ -3,6 +3,7 @@ using M4Book.ViewModel;
 using Microsoft.Maui.Controls;
 
 using M4Book.View;
+using M4Book.View.Mobile;
 
 namespace M4Book;
 
@@ -12,7 +13,7 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		
-		Content = new PlayerView();
+		Content = new MainMobileView();
 		
     }
 }

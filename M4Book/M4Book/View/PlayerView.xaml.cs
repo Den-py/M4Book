@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Core.Primitives;
+using CommunityToolkit.Maui.Views;
+using M4Book.Model;
 using M4Book.ViewModel;
 using System;
 
@@ -8,22 +10,32 @@ public partial class PlayerView : ContentView
 {
 	// readonly ILogger logger;
 	// public MediaElement mediaElement;
-
+    public Audiobook Audiobook { get; set; }
     public Slider PositionSlider { get; set; }
+
+   
 	public PlayerView()
 	{
 		InitializeComponent();
 
         BindingContext = new PlayerViewModel();
-
+        Audiobook = new Audiobook("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\В.Чиркова - Личный секретарь для младшего принца.m4b");
         // mediaElement = this.FindByName("mediaElement") as MediaElement;
         PositionSlider = this.FindByName("positionSlider") as Slider;
+        
+        mediaElement.Source = Audiobook.FilePath;
 
     }
-    public void OnNextSecClicked(object? sender, EventArgs args)
+    void MoveToPotition(double newPosition,bool reverse = false)
     {
         mediaElement.Pause();
-        var newValue = mediaElement.Position + TimeSpan.FromSeconds(15);
+        var newValue = mediaElement.Position;
+        if (reverse) {
+            newValue -= TimeSpan.FromSeconds(newPosition); }
+        else
+        {
+            newValue += TimeSpan.FromSeconds(newPosition);
+        }
         if (newValue < TimeSpan.Zero)
         {
             newValue = TimeSpan.Zero;
@@ -35,9 +47,13 @@ public partial class PlayerView : ContentView
         mediaElement.SeekTo(newValue);
         mediaElement.Play();
     }
+    public void OnNextSecClicked(object? sender, EventArgs args)
+    {
+        MoveToPotition(15);
+    }
     public void OnBackSecClicked(object? sender, EventArgs args)
     {
-
+        MoveToPotition(15, true);
     }
     public void OnBackChapterClicked(object? sender, EventArgs args)
     {

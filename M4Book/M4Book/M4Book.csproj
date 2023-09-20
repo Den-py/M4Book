@@ -60,15 +60,22 @@
         <PackageReference Include="Plugin.Maui.Audio" Version="1.0.0" />
         <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
         <PackageReference Include="TagLibSharp" Version="2.3.0" />
+        <PackageReference Include="z440.atl.core" Version="5.7.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="View\Mobile\MainMobileView.xaml.cs">
+        <DependentUpon>MainMobileView.xaml</DependentUpon>
+      </Compile>
       <Compile Update="View\TagsEditView.xaml.cs">
         <DependentUpon>TagsEditView.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
 
     <ItemGroup>
+      <MauiXaml Update="View\Mobile\MainMobileView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="View\PlayerView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
