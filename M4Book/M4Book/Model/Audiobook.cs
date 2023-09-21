@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ATL;
+using Microsoft.Maui.Media;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace M4Book.Model
 {
@@ -15,6 +17,7 @@ namespace M4Book.Model
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
         public TimeSpan StartPosition { get; set; }
+        public TimeSpan EndPosition { get; set; }
     }
 
 
@@ -30,8 +33,9 @@ namespace M4Book.Model
         public string Description { get; set; }
         public TimeSpan Duration { get; set; }
         public ObservableCollection<Chapter> Chapters { get; set; }
-        public byte[] Cover { get; set; }
+        public byte[]? Cover { get; set; }
         public string FilePath { get; set; }
+        public string FileFormat { get; set; }
         
 
         public double DurationToDouble()
@@ -44,38 +48,48 @@ namespace M4Book.Model
 
         }
 
-        public Audiobook(string path)
+        public Audiobook(string path, string fileFormat)
         {
-            FilePath = path;
-            Track theTrack = new Track(path);
-            Title = theTrack.Title;
-            Series = theTrack.SeriesTitle;
-            // SeriesPart = Int32.Parse(theTrack.SeriesPart);
-            if (theTrack.Composer is "")
+            if(fileFormat == "m4b")
             {
-                Author = theTrack.Artist;
-            }
-            else
-            {
-                Reader = theTrack.Artist;
-                Author = theTrack.Composer;
-            }
-            Description = theTrack.Description;
-            Duration = TimeSpan.FromSeconds(theTrack.Duration);
-
-            Chapters = new ObservableCollection<Chapter>();
-
-            foreach (var chapter in theTrack.Chapters)
-            {
-                Chapters.Add(new Chapter()
+                /*path = path.Replace(" - ", "-");*/
+                Track theTrack = new Track(path);
+                Title = theTrack.Title;
+                Series = theTrack.SeriesTitle;
+                // SeriesPart = Int32.Parse(theTrack.SeriesPart);
+                if (theTrack.Composer is "")
                 {
-                    Title = chapter.Title,
-                    StartPosition = TimeSpan.FromMicroseconds(chapter.StartTime),
-                    Duration = TimeSpan.FromMicroseconds(chapter.EndTime - chapter.StartTime)
-                });
-            }
+                    Author = theTrack.Artist;
+                }
+                else
+                {
+                    Reader = theTrack.Artist;
+                    Author = theTrack.Composer;
+                }
+                Description = theTrack.Description;
+                Duration = TimeSpan.FromSeconds(theTrack.Duration);
+                Chapters = new ObservableCollection<Chapter>();
 
-            Cover = theTrack.EmbeddedPictures[0].PictureData;
+                foreach (var chapter in theTrack.Chapters)
+                {
+                    Chapters.Add(new Chapter()
+                    {
+                        Title = chapter.Title,
+                        StartPosition = TimeSpan.FromMicroseconds(chapter.StartTime),
+                        EndPosition = TimeSpan.FromMicroseconds(chapter.EndTime),
+                        Duration = TimeSpan.FromMicroseconds(chapter.EndTime - chapter.StartTime)
+                    }) ;
+                }
+
+                Cover = theTrack.EmbeddedPictures[0].PictureData;
+            }
+            else if(fileFormat == "mp3")
+            {
+                var ppp = 8;
+            }
+            FilePath = path;
+            
+            FileFormat = fileFormat;
         }
     }
 }

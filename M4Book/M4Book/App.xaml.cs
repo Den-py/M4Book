@@ -1,4 +1,8 @@
-﻿namespace M4Book;
+﻿
+using M4Book.View;
+using M4Book.View.Mobile;
+
+namespace M4Book;
 
 public partial class App : Application
 {
@@ -6,6 +10,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new NavigationPage(new MainPage());
+		MainPage = new NavigationPage(new MainMobilePage());
 	}
 }

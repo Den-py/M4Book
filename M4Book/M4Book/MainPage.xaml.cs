@@ -13,7 +13,7 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		
-		Content = new MainMobileView();
+		/*Content = new NavigationPage();*/
 		
     }
 }

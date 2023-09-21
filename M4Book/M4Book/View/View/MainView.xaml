@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:M4Book.ViewModel"
+             x:Class="M4Book.View.View.MainView">
+    <ContentView.BindingContext>
+        <viewModel:MainViewModel/>
+    </ContentView.BindingContext>
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout>
+                <Label 
+                        Text="Читаю сейчас"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" />   
+                <FlexLayout 
+                    x:Name="ReadingList"
+                    BindableLayout.ItemsSource="{Binding ReadingList}"
+                    BackgroundColor="Azure">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Margin="4"
+                                Padding="4"
+                                CornerRadius="4"
+                                BackgroundColor="CadetBlue"
+                                HeightRequest="150"
+                                >
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Tapped="TapGestureRecognizer_Tapped" 
+                                        NumberOfTapsRequired="2"></TapGestureRecognizer>
+                                </Frame.GestureRecognizers> 
+                                <Grid 
+                                    RowDefinitions="2*,2*,1*"
+                                    ColumnDefinitions="1*, 2*"
+                                    Margin="2">
+                                    <Image 
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Grid.RowSpan="3"
+                                        Source="{Binding Cover}"
+                                        />
+                                    <Label 
+                                            Grid.Column="1"
+                                            Grid.Row="0"
+                                            Text="{Binding Title}"
+                                            LineBreakMode="WordWrap"
+                                            Padding="5"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"></Label>
+                                    <Label
+                                           Grid.Column="1"
+                                        Grid.Row="1"
+                                            Text="{Binding Author}"
+                                        LineBreakMode="WordWrap"
+                                            Padding="5"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="CenterAndExpand"></Label>
+                                    
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                
+                </FlexLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button Text="0" Clicked="Button_Clicked"></Button>
+    </VerticalStackLayout>
+</ContentView>

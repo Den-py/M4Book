@@ -24,12 +24,12 @@ namespace M4Book.ViewModel
 
         public PlayerViewModel()
         {
-            bookFile = TagLib.File.Create("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\" + curent.FileName);
+            /*bookFile = TagLib.File.Create("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\" + curent.FileName);
 
             curent.Title = bookFile.Tag.Title;
-            curent.Duration = bookFile.Properties.Duration/*bookFile.Tag.Track*/;
+            curent.Duration = bookFile.Properties.Duration*//*bookFile.Tag.Track*//*;
 
-            cover = bookFile.Tag.Pictures[0].Data.Data;
+            cover = bookFile.Tag.Pictures[0].Data.Data;*/
             
 
         }

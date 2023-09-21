@@ -64,22 +64,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="View\Mobile\MainMobileView.xaml.cs">
-        <DependentUpon>MainMobileView.xaml</DependentUpon>
-      </Compile>
       <Compile Update="View\TagsEditView.xaml.cs">
         <DependentUpon>TagsEditView.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <MauiXaml Update="View\Mobile\MainMobileView.xaml">
+      <MauiXaml Update="View\Mobile\MainMobilePage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="View\Mobile\MobilePlayerPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="View\PlayerView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="View\TagsEditView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+      <MauiXaml Update="View\View\MainView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
     </ItemGroup>

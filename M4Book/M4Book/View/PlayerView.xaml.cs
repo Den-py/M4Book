@@ -10,25 +10,33 @@ public partial class PlayerView : ContentView
 {
 	// readonly ILogger logger;
 	// public MediaElement mediaElement;
-    public Audiobook Audiobook { get; set; }
+    public AudiobookViewModel Audiobook { get; set; }
     public Slider PositionSlider { get; set; }
 
+    MediaElementState beforMediaElementState { get; set; }
+
    
-	public PlayerView()
+	public PlayerView(AudiobookViewModel audiobook)
 	{
 		InitializeComponent();
+        Audiobook = audiobook;
+        BindingContext = audiobook;
 
-        BindingContext = new PlayerViewModel();
-        Audiobook = new Audiobook("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\В.Чиркова - Личный секретарь для младшего принца.m4b");
+        /*Audiobook = new Audiobook("C:\\MyPCNew\\Code\\M4Book\\M4Book\\M4Book\\Resources\\Raw\\В.Чиркова - Личный секретарь для младшего принца.m4b", ".m4b");*/
         // mediaElement = this.FindByName("mediaElement") as MediaElement;
         PositionSlider = this.FindByName("positionSlider") as Slider;
         
         mediaElement.Source = Audiobook.FilePath;
+        PositionSlider.Maximum = Audiobook.CurentDuration.TotalSeconds;
 
     }
     void MoveToPotition(double newPosition,bool reverse = false)
     {
-        mediaElement.Pause();
+        beforMediaElementState = mediaElement.CurrentState;
+        if(beforMediaElementState == MediaElementState.Playing) // TODO: Изменить в будущем эту часть
+        {
+            mediaElement.Pause();
+        }
         var newValue = mediaElement.Position;
         if (reverse) {
             newValue -= TimeSpan.FromSeconds(newPosition); }
@@ -45,7 +53,10 @@ public partial class PlayerView : ContentView
             newValue = mediaElement.Duration;
         }
         mediaElement.SeekTo(newValue);
-        mediaElement.Play();
+        if(beforMediaElementState == MediaElementState.Playing)
+        {
+            mediaElement.Play();
+        }
     }
     public void OnNextSecClicked(object? sender, EventArgs args)
     {
@@ -108,11 +119,15 @@ public partial class PlayerView : ContentView
         var newValue = ((Slider)sender).Value;
         var newTime = TimeSpan.FromSeconds(newValue);
         mediaElement.SeekTo(newTime);
-        mediaElement.Play();
+        if(beforMediaElementState == MediaElementState.Playing)
+        {
+            mediaElement.Play();
+        }
+        
     }
-
     void Slider_DragStarted(object sender, EventArgs e)
     {
+        beforMediaElementState = mediaElement.CurrentState;
         mediaElement.Pause();
     }
 

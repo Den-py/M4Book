@@ -18,19 +18,33 @@
         ShouldAutoPlay="{Binding AutoPlay}"
         PositionChanged="mediaElement_PositionChanged"/>
         <Image 
-            Source="{Binding Cover, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+            Source="{Binding Cover}"
             Aspect="Center"/>
 
         <Label 
             Text="{Binding Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Slider
+        <HorizontalStackLayout>
+            <Label
+                Text="{Binding CurentDuration}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" />
+            <Slider
                 x:Name="positionSlider"
                 MinimumTrackColor="Gray"
                 Maximum="{Binding CurentDuration}"
                 DragStarted="Slider_DragStarted"
-                DragCompleted="Slider_DragCompleted"/>
+                DragCompleted="Slider_DragCompleted"
+                VerticalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
+                MinimumWidthRequest="200"/>
+            <Label
+                Text="{Binding CurentDuration}"
+                VerticalOptions="Center" 
+                HorizontalOptions="End"/>
+        </HorizontalStackLayout>
+        
         <Grid ColumnDefinitions="1*,1*,1*,1*,1*,1*">
             <Button Grid.Column="0" Text="Back" Clicked="OnBackChapterClicked"></Button>
             <Button Grid.Column="1" Text="15 back" Clicked="OnBackSecClicked"></Button>
@@ -62,10 +76,15 @@
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="Скорость(Сделать переключателем состояний):" />
-                    <Span Text="{Binding Source={x:Reference mediaElement}, Path=Speed}" />
+                    <Span Text="{Binding Source={x:Reference mediaElement}, Path=Position}" />
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <ScrollView>
+            <CollectionView>
+                
+            </CollectionView>
+        </ScrollView>
 
     </VerticalStackLayout>
 </ContentView>
