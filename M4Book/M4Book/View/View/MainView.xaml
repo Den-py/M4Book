@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:M4Book.ViewModel"
              x:Class="M4Book.View.View.MainView">
     <ContentView.BindingContext>
@@ -11,10 +12,23 @@
             <VerticalStackLayout>
                 <Label 
                         Text="Читаю сейчас"
+                    x:Name="HeadingLabel"
                         VerticalOptions="Center" 
-                        HorizontalOptions="Center" />   
-                <FlexLayout 
+                        HorizontalOptions="Center">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="#4D4D4D"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Label>
+                    <FlexLayout 
                     x:Name="ReadingList"
+                        HeightRequest="500"
+                        Direction="Row"
                     BindableLayout.ItemsSource="{Binding ReadingList}"
                     BackgroundColor="Azure">
                     <BindableLayout.ItemTemplate>
@@ -67,5 +81,8 @@
             </VerticalStackLayout>
         </ScrollView>
         <Button Text="0" Clicked="Button_Clicked"></Button>
+        <ImageButton
+            Source="pencil.png">
+        </ImageButton>
     </VerticalStackLayout>
 </ContentView>

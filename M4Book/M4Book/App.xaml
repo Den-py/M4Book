@@ -6,12 +6,73 @@
     <Application.Resources>
         <ResourceDictionary>
 
+            <x:Double x:Key="ExtraSmall">0</x:Double>
+            <x:Double x:Key="Small">576</x:Double>
+            <x:Double x:Key="Medium">768</x:Double>
+            <x:Double x:Key="Large">992</x:Double>
+            <x:Double x:Key="ExtraLarge">1200</x:Double>
+            <x:Double x:Key="ExtraExtraLarge">1400</x:Double>
+
+            <Color x:Key="PrimaryTextColor">#512bdf</Color>
+            <Color x:Key="SecondaryTextColor">White</Color>
+            <Color x:Key="FrameBackgroundColor">#512bdf</Color>
+            <Color x:Key="ButtonColor">White</Color>
+            <Color x:Key="ButtonPressedColor">#512bdf</Color>
+            
+
+
             <Color x:Key="PageBackgroundColor">#512bdf</Color>
-            <Color x:Key="PrimaryTextColor">White</Color>
+            
 
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="FontFamily" Value="OpenSansRegular" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="Responsive">
+                            <VisualState x:Name="ExtraExtraLarge">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{DynamicResource ExtraExtraLarge}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter  Property="Label.FontSize" Value="24"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="ExtraLarge">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{DynamicResource ExtraLarge}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Label.FontSize" Value="22"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Large">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{DynamicResource Large}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter  Property="Label.FontSize" Value="20"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Medium">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{DynamicResource Medium}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter  Property="Label.FontSize" Value="18"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Small">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{DynamicResource Small}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter  Property="Label.FontSize" Value="16"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
 
             <Style TargetType="Button">
@@ -20,6 +81,35 @@
                 <Setter Property="BackgroundColor" Value="#2b0b98" />
                 <Setter Property="Padding" Value="14,10" />
             </Style>
+
+            <Style TargetType="ImageButton">
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1"/>
+                                    
+                                    <Setter Property="BackgroundColor" Value="Beige"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.95"/>
+                                    
+                                    <Setter Property="BackgroundColor" Value="DeepPink"/>
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
 
         </ResourceDictionary>
     </Application.Resources>

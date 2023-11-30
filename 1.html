@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .box {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+    }
+
+    .box .row {
+        border: 1px dotted grey;
+    }
+
+    .box .row.header {
+        flex: 0 1 auto;
+        /* The above is shorthand for:
+  flex-grow: 0,
+  flex-shrink: 1,
+  flex-basis: auto
+  */
+    }
+
+    .box .row.content {
+        flex: 1 1 auto;
+    }
+
+    .box .row.footer {
+        flex: 0 1 40px;
+    }
+
+    .w {
+        justify-content: space-around;
+        align-items: stretch;
+    }
+    .purple {
+        background-color: blueviolet;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="row header">
+            <p><button class="purple" title="back"></button>
+            </p>
+        </div>
+        <div class="row content">
+            <p>
+                <b>content</b>
+                (fills remaining space)
+            </p>
+        </div>
+        <div class="box colu footer">
+            <div class="purple">
+                <button></button>
+            </div><div class="purple">
+                <button></button>
+            </div><div class="purple">
+                <button></button>
+            </div><div class="purple">
+                <button></button>
+            </div>
+        </div>
+        <div class="box row footer">
+            
+        </div>
+    </div>
+</body>
+
+</html>
+
+<toolkit:DockLayout
+        Padding="10,20,30,40"
+        VerticalSpacing="10"
+        HorizontalSpacing="15"
+        ShouldExpandLastChild="False">
+        <toolkit:MediaElement
+            MaximumHeightRequest="0"
+            MaximumWidthRequest="0"
+            x:Name="mediaElement"
+            ShouldShowPlaybackControls="False"
+            Source="embed://Житие мое.m4b"
+            ShouldAutoPlay="{Binding AutoPlay}"
+            PositionChanged="mediaElement_PositionChanged"
+            toolkit:DockLayout.DockPosition="None" />
+        <Button 
+            Text="Назад" 
+            toolkit:DockLayout.DockPosition="Top"
+            Clicked="Button_BackPage_Clicked"/>
+
+        <Image
+            Source="{Binding Cover}"
+            Aspect="Center"
+            toolkit:DockLayout.DockPosition="None"
+            HeightRequest="200"
+            WidthRequest="200" />
+
+        <Label
+            Text="{Binding Title}"
+            StyleClass="PrimaryText"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            toolkit:DockLayout.DockPosition="None" />
+
+        <Label
+            Text="{Binding Title}"
+            StyleClass="SecondaryText"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            toolkit:DockLayout.DockPosition="None" />
+
+        <Grid toolkit:DockLayout.DockPosition="Bottom" ColumnDefinitions="1*,1*,1*,1*,1*">
+            <Button 
+                Grid.Column="5" 
+                Text="1" 
+                Clicked="OnSpeedClicked"></Button>
+            <ImageButton 
+                Grid.Column="0" 
+                Source="clock.png" 
+                Clicked="OnBackChapterClicked"></ImageButton>
+            <ImageButton 
+                Grid.Column="1" 
+                Source="music_back.png" 
+                Clicked="OnBackSecClicked"></ImageButton>
+            <ImageButton 
+                Grid.Column="2"
+                Source="music_play.png"
+                
+                Clicked="OnPlayPauseClicked">
+            </ImageButton>
+            <ImageButton Grid.Column="3" Source="booknote.png" Clicked="OnNextSecClicked"></ImageButton>
+        </Grid>
+
+        <Grid toolkit:DockLayout.DockPosition="Bottom" ColumnDefinitions="1*,1*,1*,1*,1*">
+            <ImageButton 
+                Grid.Column="0" 
+                Source="music_backtoend.png" 
+                Clicked="OnBackChapterClicked"></ImageButton>
+            <ImageButton Grid.Column="1" Source="music_back.png" Clicked="OnBackSecClicked"></ImageButton>
+            <ImageButton x:Name="Play" Grid.Column="2"
+                Source="music_play.png"
+                
+                Clicked="OnPlayPauseClicked">
+
+            </ImageButton>
+            <ImageButton Grid.Column="3" Source="music_forward.png" Clicked="OnNextSecClicked"></ImageButton>
+            <ImageButton Grid.Column="4" Source="music_forwardtoend.png"
+                Clicked="OnNextChapterClicked"></ImageButton>
+        </Grid>
+
+
+        <toolkit:DockLayout 
+            
+            toolkit:DockLayout.DockPosition="Bottom">
+            <Label
+                toolkit:DockLayout.DockPosition="Left"
+                Text="{Binding CurentDuration}"
+                VerticalOptions="Center"
+                HorizontalOptions="Start" />
+
+
+            <Label
+                toolkit:DockLayout.DockPosition="Right"
+                Text="{Binding CurentDuration}"
+                VerticalOptions="Center"
+                HorizontalOptions="StartAndExpand" />
+        </toolkit:DockLayout>
+        <FlexLayout>
+            <Slider
+            toolkit:DockLayout.DockPosition="Bottom"
+            x:Name="positionSlider"
+            MinimumTrackColor="Gray"
+            Maximum="{Binding CurentDuration}"
+            DragStarted="Slider_DragStarted"
+            DragCompleted="Slider_DragCompleted"
+            VerticalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
+        />
+        </FlexLayout>
+        
+    </toolkit:DockLayout>

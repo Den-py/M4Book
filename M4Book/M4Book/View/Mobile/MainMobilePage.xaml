@@ -6,4 +6,5 @@
              x:Class="M4Book.View.Mobile.MainMobilePage"
              Title="MainMobilePage">
     <viewView:MainView></viewView:MainView>
+    
 </ContentPage>

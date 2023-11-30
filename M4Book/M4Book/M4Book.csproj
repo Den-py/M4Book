@@ -85,6 +85,13 @@
       <MauiXaml Update="View\View\MainView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="View\View\ToolbarPlayer.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\Styles\" />
     </ItemGroup>
 
 </Project>

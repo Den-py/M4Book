@@ -15,6 +15,7 @@ namespace M4Book.ViewModel
     {
         Audiobook audiobook;
         ImageSource coverSource;
+        bool listening;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -36,6 +37,19 @@ namespace M4Book.ViewModel
             coverSource = ImageSource.FromStream(() => new MemoryStream(audiobook.Cover));
         }
 
+        // Аналоги конструкторов, для СИНГЛТОНА
+        public void AudiobookInit(Audiobook book)
+        {
+            audiobook = book;
+            coverSource = ImageSource.FromStream(() => new MemoryStream(audiobook.Cover));
+        }
+
+        public void AudiobookInit(string path, string fileFormat)
+        {
+            audiobook = new Audiobook(path, fileFormat);
+            coverSource = ImageSource.FromStream(() => new MemoryStream(audiobook.Cover));
+        }
+
 
         public int Id { get => audiobook.Id; set { if (audiobook.Id != value) { audiobook.Id = value; OnPropertyChanged(); } } }
         public string Title { get => audiobook.Title; set { if (audiobook.Title != value) { audiobook.Title = value; OnPropertyChanged(); } } }
@@ -50,6 +64,8 @@ namespace M4Book.ViewModel
         public string FilePath { get => audiobook.FilePath; set { if (audiobook.FilePath != value) { audiobook.FilePath = value; OnPropertyChanged(); } } }
 
         public TimeSpan CurentDuration { get => Duration; set { if (Duration != value) {  Duration = value; OnPropertyChanged(); } } }
+        
+        public bool Listening { get => listening; set { if (listening != value) { listening = value; OnPropertyChanged(); } } }
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

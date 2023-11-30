@@ -76,24 +76,24 @@ public partial class PlayerView : ContentView
     }
     public void OnPlayPauseClicked(object? sender, EventArgs args)
     {
-        Button button = (Button)sender;
-        string text;
+        ImageButton button = (ImageButton)sender;
+        string sourceIcon;
         if (mediaElement.CurrentState == MediaElementState.Stopped ||
             mediaElement.CurrentState == MediaElementState.Paused)
         {
             mediaElement.Play();
-            text = "Play";
+            sourceIcon = "pause";
         }
         else if (mediaElement.CurrentState == MediaElementState.Playing)
         {
             mediaElement.Pause();
-            text = "Pause";
+            sourceIcon = "play";
         }
         else
         {
-            text = "Stop";
+            sourceIcon = "stop";
         }
-        button.Text = text;
+        button.Source = "music_"+ sourceIcon+".png";
     }
 
     public void OnSpeedClicked(object? sender, EventArgs args)
@@ -137,5 +137,10 @@ public partial class PlayerView : ContentView
         PositionSlider.Value = position.TotalSeconds;
         /*PositionSlider.Value = (position.Hours + position.Minutes / 100.0 + position.Seconds / 10000.0) * (position > TimeSpan.Zero ? 1 : -1);*/
         
+    }
+
+    private async void Button_BackPage_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
     }
 }
